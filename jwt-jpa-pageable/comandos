@@ -1,0 +1,18 @@
+docker run -d \
+  --name my_postgres \
+  -e POSTGRES_DB=mydb \
+  -e POSTGRES_USER=root \
+  -e POSTGRES_PASSWORD=secret \
+  -p 5432:5432 \
+  postgres
+
+
+
+DB_NAME=mydb;DB_PASS=secret;DB_PORT=5432;DB_USER=root;
+SECRET_KEY=3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b;SERVER_PORT=8005;EXP_TOKEN=86400000
+
+#Request
+    identificacion
+    nro cuenta
+#Response
+    todos los campos de la tabla trx

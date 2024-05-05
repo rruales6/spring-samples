@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    image: sample-accounts:1.0
+    ports:
+      - "8005:8005"
+    networks:
+      - app
+    environment:
+      - DB_HOST=db
+      - DB_NAME=mydb
+      - DB_PASS=secret
+      - DB_PORT=5432
+      - DB_USER=root
+      - SECRET_KEY=3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+      - SERVER_PORT=8005
+      - EXP_TOKEN=86400000
+      - SUCURSAL=MATRIZ
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    networks:
+      - app
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+#    healthcheck:
+#      #CHANGE 1: this command checks if the database is ready, right on the source db server
+#      test: [ "CMD-SHELL", "pg_isready" , "-d", "mydb"]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+
+networks:
+  app:
