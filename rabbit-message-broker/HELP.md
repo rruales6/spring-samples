@@ -6,7 +6,7 @@ The following was discovered as part of building this project:
 # Getting Started
 
 # Ingresa como guest y crea el queue
-
+curl http://localhost:8080/send?message=hola
 
 ### Reference Documentation
 For further reference, please consider the following sections:
