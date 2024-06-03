@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    #image: ocr.harborqa.com.fin/microservices/com-microservice-notificacion-api:1.0.0-SNAPSHOT
+    ports:
+      - "8447:8484"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - notification
+    environment:
+      - SERVER_PORT=8484
+      - EMISOR_SMS_PROVIDER=comPRB
+      - EXCHANGE=notif-exchange
+      - LOGIN_SMS_PROVIDER=admin
+      - ORACLE_DB=FREEPDB1
+      - ORACLE_HOST=oracle
+      - ORACLE_PASS=com2024
+      - ORACLE_PORT=1521
+      - ORACLE_USR=SYSTEM
+      - PASS_SMS_PROVIDER=bnrp@csmss
+      - QUEUE_NAME=q.pending-notification
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - ROUTING_KEY=pending-notification
+      - SECRET_KEY=csms@auto
+      - SERVICIO_SMS_PROVIDER=CONTACTOSMS
+      - URI_SMS_PROVIDER_AUTH=https://127.0.0.1:9443/SMSWebApi/authenticate
+      - URI_SMS_PROVIDER_SEND=https://127.0.0.1:9443/SMSWebApi/MTEnviar
+  rabbitmq:
+    image: rabbitmq:management
+    restart: no
+    networks:
+      - notification
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  oracle:
+    image: gvenzl/oracle-free
+    networks:
+      - notification
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=com2024
+    volumes:
+      - oracle-volume:/opt/oracle/oradata
+networks:
+  notification:
+volumes:
+  oracle-volume:

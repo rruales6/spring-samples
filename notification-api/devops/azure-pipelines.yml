@@ -1,0 +1,5 @@
+parameters:
+  - name: DOCKER_IMAGE_TAG
+    default: '1.0.0'
+  - name: DOCKER_REPOSITORY
+    default: 'com-microservice-notificacion-api'
